@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Fight | Home",
@@ -11,9 +12,22 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => {
-	return <main>
-		<h1 className="title text-9xl">FIGHT</h1>
-	</main>;
+	return (
+		<main>
+			<h1 className="title text-9xl text-center">FIGHT</h1>
+			<Link href="/create">
+				<button type="button" className="text-6xl mt-6 w-full border-[5px] h-24 rounded-xl border-black border-solid">
+					CRIAR
+				</button>
+			</Link>
+			
+			<Link href="/rooms">
+				<button type="button" className="text-6xl mt-5 w-full border-[5px] h-24 rounded-xl border-black border-solid">
+					SALAS
+				</button>
+			</Link>
+		</main>
+	);
 };
 
 export default HomePage;

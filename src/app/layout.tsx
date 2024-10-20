@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Patrick_Hand_SC } from "next/font/google";
-import Header from "@/components/Header";
+import type { Metadata } from 'next';
+import './globals.css';
+import { Patrick_Hand_SC } from 'next/font/google';
+import Header from '@/components/Header';
 
 export const metadata: Metadata = {
-	title: "Fight",
-	description: "Um jogo de disputa de clicks.",
+	title: 'Fight',
+	description: 'Um jogo de disputa de clicks.',
 	authors: [
-		{ name: "Victor Wollyver", url: "www.linkedin.com/in/victorwollyver" },
-		{ name: "Renan Gimenez", url: "www.linkedin.com/in/renangimenez" },
+		{ name: 'Victor Wollyver', url: 'www.linkedin.com/in/victorwollyver' },
+		{ name: 'Renan Gimenez', url: 'www.linkedin.com/in/renangimenez' },
 	],
 };
 
-const PatrickHandSC = Patrick_Hand_SC({ subsets: ["latin"], weight: "400" });
+const PatrickHandSC = Patrick_Hand_SC({ subsets: ['latin'], weight: '400' });
 
 export default function RootLayout({
 	children,
