@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import Button from "./Button";
 import Input from "./Input";
 
@@ -16,18 +18,38 @@ const Form = () => {
     senha: "",
   });
 
+  const router = useRouter();
+
   const changeValue = (key: string, value: string) => {
     setFormData({ ...formData, [key]: value });
   };
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (
+      !formData.nome.trim() ||
+      (matchType === "privada" && !formData.senha.trim())
+    ) {
+      return alert("Preencha todos os campos");
+    }
+
+    const data = {
+      ...formData,
+      senha: matchType === "privada" ? formData.senha : "",
+    };
+
+    console.log(data);
+  };
+
   return (
-    <div className="flex flex-col items-center gap-5">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-5">
       <Input
         onChange={(e) => changeValue("nome", e.target.value)}
         type="text"
         placeholder="Nome..."
       />
-      <Input setMatchType={setMatchType} placeholder="Nome..." />
+      <Input setMatchType={setMatchType} />
 
       {matchType === "privada" && (
         <Input
@@ -37,15 +59,15 @@ const Form = () => {
         />
       )}
 
-      <div className="flex w-full gap-5 mt-3">
-        <Button baseColor="#FACC15" onClick={() => alert("Voltar")}>
+      <div className="grid grid-cols-[auto,1fr] w-full gap-5 mt-3">
+        <Button type="button" theme="yellow" onClick={() => router.back()}>
           <ArrowLeft />
         </Button>
-        <Button baseColor="#4ADE80" onClick={() => console.log(formData)}>
+        <Button type="submit" theme="blue" onClick={handleSubmit}>
           Criar
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 
