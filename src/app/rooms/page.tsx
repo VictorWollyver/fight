@@ -1,6 +1,9 @@
 import type { Metadata } from "next/types";
+import { RefreshCcw, ArrowLeft } from "lucide-react";
 import React from "react";
 import RoomsList from "./components/RoomsList";
+import Button from "@/components/Button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Fight | Rooms",
@@ -56,9 +59,16 @@ const Rooms = () => {
 		<main>
 			<h1 className="title text-9xl text-center">SALAS</h1>
 			<RoomsList rooms={ROOMS} />
-			<div className="flex justify-between items-center mt-5">
-				<button type="button">😁</button>
-				<button type="button">😂</button>
+			<div className="grid justify-between items-center mt-5" style={{ gridTemplateColumns: "auto auto" }}>
+				<Link href="/create">
+					<Button baseColor="#FACC15">
+						<ArrowLeft />
+					</Button>
+				</Link>
+
+				<Button baseColor="#4ADE80">
+					<RefreshCcw />
+				</Button>
 			</div>
 		</main>
 	);
