@@ -24,7 +24,7 @@ export default function RootLayout({
 			<body className={`antialiased ${PatrickHandSC.className}`}>
 				<Header />
 
-				<div className="container mx-auto mt-20">{children}</div>
+				<div className="grid place-content-center h-[calc(100vh-96px)]">{children}</div>
 			</body>
 		</html>
 	);

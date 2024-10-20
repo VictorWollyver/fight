@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => {
-	return <h1 className="title mt-10">Este é um texto com borda</h1>;
+	return <main>
+		<h1 className="title text-9xl">FIGHT</h1>
+	</main>;
 };
 
 export default HomePage;
