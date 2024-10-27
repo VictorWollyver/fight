@@ -60,13 +60,13 @@ const Rooms = () => {
 			<h1 className="title text-9xl text-center">SALAS</h1>
 			<RoomsList rooms={ROOMS} />
 			<div className="grid justify-between items-center mt-5" style={{ gridTemplateColumns: "auto auto" }}>
-				<Link href="/create">
-					<Button baseColor="#FACC15">
+				<Link href="/">
+					<Button theme="yellow">
 						<ArrowLeft />
 					</Button>
 				</Link>
 
-				<Button baseColor="#4ADE80">
+				<Button theme="green">
 					<RefreshCcw />
 				</Button>
 			</div>

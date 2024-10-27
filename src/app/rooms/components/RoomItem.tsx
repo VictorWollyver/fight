@@ -7,7 +7,7 @@ interface IRoomItemProps {
 
 const RoomItem = ({ room }: IRoomItemProps) => {
 	return (
-		<div className="mt-5 h-24 border-[5px] border-black border-solid rounded-xl flex justify-between items-center px-5 w-full">
+		<div className="cursor-pointer mt-5 h-24 border-[5px] border-black border-solid rounded-xl flex justify-between items-center px-5 w-full duration-100 hover:bg-[#020617]">
 			<div>
 				<h2 className="text-4xl">{room.name}</h2>
 				<p className="text-4xl title">
