@@ -1,8 +1,8 @@
 import React from "react";
-import type { IRoom } from "../page";
+import type { Room } from "@/app/api/rooms";
 
 interface IRoomItemProps {
-	room: IRoom;
+	room: Room;
 }
 
 const RoomItem = ({ room }: IRoomItemProps) => {
@@ -11,7 +11,7 @@ const RoomItem = ({ room }: IRoomItemProps) => {
 			<div>
 				<h2 className="text-4xl">{room.name}</h2>
 				<p className="text-4xl title">
-					{room.players}/{room.maxPlayers}
+					{room.currentPlayersCount}/{room.maxPlayersCount}
 				</p>
 			</div>
 			<button type="button" className="border-[3px] px-3 border-black border-solid text-4xl rounded-xl">
