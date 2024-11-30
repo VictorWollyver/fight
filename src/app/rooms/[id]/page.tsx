@@ -1,0 +1,26 @@
+import { getRoomById } from "@/app/api/rooms";
+import ClickBox from "@/components/ClickBox";
+
+const LobbyPage = async ({ params }: { params: { id: string } }) => {
+	const { data } = await getRoomById(params.id);
+	console.log(data);
+	return (
+		<main className="w-[720px]">
+			<h1 className="text-9xl text-center w-full">
+				Sala: <span className="title">{data?.name}</span>
+			</h1>
+			<div className="flex gap-6">
+				<input style={{ flex: 1 }} type="text" value={`https://fightgame.com.br/rooms/${data?.id}`} readOnly className="text-4xl mt-6 w-full border-[5px] h-24 rounded-xl border-black border-solid bg-transparent" />
+
+				<button type="button" className="text-4xl px-10 mt-6 border-[5px] h-24 rounded-xl border-black border-solid">
+					COPIAR
+				</button>
+			</div>
+
+      <ClickBox />
+
+		</main>
+	);
+};
+
+export default LobbyPage;
