@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -36,6 +36,13 @@ const Form = () => {
 	const changeValue = (key: string, value: string) => {
 		setFormData({ ...formData, [key]: value });
 	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	React.useEffect(() => {
+		if (state.ok) {
+			router.push(`/rooms/${state.data?.id}`);
+		}
+	}, [state.ok]);
 
 	return (
 		<form action={action} className="flex flex-col items-center gap-5">

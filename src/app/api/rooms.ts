@@ -3,7 +3,7 @@ import { z } from "zod";
 import apiError from "@/functions/apiError";
 
 const RoomScheme = z.object({
-	_id: z.string(),
+	id: z.string(),
 	name: z.string(),
 	password: z.string().optional(),
 	privacyRoom: z.enum(["PUBLIC", "PRIVATE"]),
@@ -57,6 +57,24 @@ export async function postRoom(state: {}, formData: FormData) {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(room),
+		});
+
+		const { data, message } = (await response.json()) as { data: Room | null; message: string };
+
+		if (!response.ok) {
+			throw new Error(message);
+		}
+
+		return { data: data, ok: true, errorMessage: "", successMessage: message, alreadyFetched: true };
+	} catch (error) {
+		return apiError(error);
+	}
+}
+
+export async function getRoomById(id: string) {
+	try {
+		const response = await fetch(`http://localhost:3001/rooms/getRoomById/${id}`, {
+			method: "GET",
 		});
 
 		const { data, message } = (await response.json()) as { data: Room | null; message: string };
