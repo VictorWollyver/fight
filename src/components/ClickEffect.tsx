@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 const CrossIcon = ({ show, mousePosition }: { show: boolean; mousePosition: { x: number; y: number } }) => {
