@@ -1,6 +1,6 @@
-import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
 	title: "Fight | Home",
@@ -20,7 +20,7 @@ const HomePage = () => {
 					CRIAR
 				</button>
 			</Link>
-			
+
 			<Link href="/rooms">
 				<button type="button" className="text-6xl mt-5 w-full border-[5px] h-24 rounded-xl border-black border-solid">
 					SALAS

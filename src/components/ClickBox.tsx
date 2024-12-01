@@ -34,9 +34,10 @@ const ClickBox = () => {
 	return (
 		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
 		<div ref={boxRef} onClick={handleClick} className="w-full mt-10 bg-transparent border-[5px] border-black rounded-xl h-[330px] border-solid cursor-pointer overflow-hidden">
-			{effectOptions.length > 0 && effectOptions?.map((option, index) => {
-				return <CrossIcon key={index} show={option.show} mousePosition={option} />;
-			})}
+			{effectOptions.length > 0 &&
+				effectOptions?.map((option, index) => {
+					return <CrossIcon key={index} show={option.show} mousePosition={option} />;
+				})}
 		</div>
 	);
 };

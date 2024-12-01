@@ -17,8 +17,7 @@ const LobbyPage = async ({ params }: { params: { id: string } }) => {
 				</button>
 			</div>
 
-      <ClickBox />
-
+			<ClickBox />
 		</main>
 	);
 };
