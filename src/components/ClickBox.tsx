@@ -1,34 +1,37 @@
 "use client";
 import { type SetStateAction, useState, useRef } from "react";
 import CrossIcon from "./ClickEffect";
+import type { Socket } from "socket.io-client";
 
-const ClickBox = () => {
+const ClickBox = ({ socket }: { socket: Socket }) => {
 	const [count, setCount] = useState(0);
 	const [countEffect, setCountEffect] = useState(0);
 	const [effectOptions, setEffectOptions] = useState<{ x: number; y: number; show: boolean }[]>([]);
 	const boxRef = useRef<HTMLDivElement>(null);
 
 	function handleClick(event: React.MouseEvent<HTMLDivElement>) {
-		const box = boxRef.current;
-		if (!box) return;
-
-		const { left, top, right, bottom } = box.getBoundingClientRect();
-		const { clientX: x, clientY: y } = event;
-
-		const adjustedX = Math.max(left + 45, Math.min(x, right - 45));
-		const adjustedY = Math.max(top + 45, Math.min(y, bottom - 45));
-
-		setCountEffect(countEffect + 1);
-		setEffectOptions([...effectOptions, { x: adjustedX, y: adjustedY, show: true }]);
-
-		setTimeout(() => {
-			setEffectOptions((options: any[]) => {
-				console.log(options);
-				const newOptions = options?.slice(1);
-				return newOptions;
-			});
-		}, 1000);
 		setCount(count + 1);
+		socket.emit("click", count);
+
+		// const box = boxRef.current;
+		// if (!box) return;
+
+		// const { left, top, right, bottom } = box.getBoundingClientRect();
+		// const { clientX: x, clientY: y } = event;
+
+		// const adjustedX = Math.max(left + 45, Math.min(x, right - 45));
+		// const adjustedY = Math.max(top + 45, Math.min(y, bottom - 45));
+
+		// setCountEffect(countEffect + 1);
+		// setEffectOptions([...effectOptions, { x: adjustedX, y: adjustedY, show: true }]);
+
+		// setTimeout(() => {
+		// 	setEffectOptions((options: any[]) => {
+		// 		console.log(options);
+		// 		const newOptions = options?.slice(1);
+		// 		return newOptions;
+		// 	});
+		// }, 1000);
 	}
 
 	return (

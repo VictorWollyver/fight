@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => {
+
 	return (
 		<main>
 			<h1 className="title text-9xl text-center">FIGHT</h1>
