@@ -1,46 +1,57 @@
 "use client";
-import { type SetStateAction, useState, useRef } from "react";
-import CrossIcon from "./ClickEffect";
-import type { Socket } from "socket.io-client";
+import { useState, useRef, useEffect } from "react";
+import { io, type Socket } from "socket.io-client";
+// import socket from "@/lib/socket";
 
-const ClickBox = ({ socket }: { socket: Socket }) => {
+import type { Room } from "@/app/api/rooms";
+
+const ROUND_TIME = 30; // 30 Segundos de duração de um round
+
+const ClickBox = ({ room }: { room: Room | null }) => {
+	const [socket, setSocket] = useState<Socket>();
+	const [roundStarted, setRoundStarted] = useState(false);
+
 	const [count, setCount] = useState(0);
-	const [countEffect, setCountEffect] = useState(0);
-	const [effectOptions, setEffectOptions] = useState<{ x: number; y: number; show: boolean }[]>([]);
-	const boxRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const socket = io("http://localhost:3001", {
+			reconnectionAttempts: 0,
+		});
+		setSocket(socket);
+
+		socket.on("socketId", (socketId) => {
+			console.log(socketId);
+		});
+
+		socket.on("player", (player) => {
+			console.log(player);
+		});
+
+		socket.on("click", (count: number) => {
+			setCount(count);
+		});
+
+		return () => {
+			console.log("desconectado");
+			socket.disconnect();
+		};
+	}, []);
 
 	function handleClick(event: React.MouseEvent<HTMLDivElement>) {
-		setCount(count + 1);
-		socket.emit("click", count);
-
-		// const box = boxRef.current;
-		// if (!box) return;
-
-		// const { left, top, right, bottom } = box.getBoundingClientRect();
-		// const { clientX: x, clientY: y } = event;
-
-		// const adjustedX = Math.max(left + 45, Math.min(x, right - 45));
-		// const adjustedY = Math.max(top + 45, Math.min(y, bottom - 45));
-
-		// setCountEffect(countEffect + 1);
-		// setEffectOptions([...effectOptions, { x: adjustedX, y: adjustedY, show: true }]);
-
-		// setTimeout(() => {
-		// 	setEffectOptions((options: any[]) => {
-		// 		console.log(options);
-		// 		const newOptions = options?.slice(1);
-		// 		return newOptions;
-		// 	});
-		// }, 1000);
+		if (!roundStarted) {
+			setRoundStarted(true);
+			setTimeout(() => {
+				setRoundStarted(false);
+				socket?.emit("ROUND_END");
+			}, ROUND_TIME);
+		}
+		socket?.emit("click");
 	}
 
 	return (
 		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-		<div ref={boxRef} onClick={handleClick} className="w-full mt-10 bg-transparent border-[5px] border-black rounded-xl h-[330px] border-solid cursor-pointer overflow-hidden">
-			{effectOptions.length > 0 &&
-				effectOptions?.map((option, index) => {
-					return <CrossIcon key={index} show={option.show} mousePosition={option} />;
-				})}
+		<div onClick={handleClick} className="w-full mt-10 bg-transparent border-[5px] border-black rounded-xl h-[330px] border-solid cursor-pointer overflow-hidden">
+			<h1 className="text-2xl">{count}</h1>
 		</div>
 	);
 };

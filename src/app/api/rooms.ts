@@ -1,6 +1,9 @@
 "use server";
 import { z } from "zod";
 import apiError from "@/functions/apiError";
+import { permanentRedirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
+import { error } from "console";
 
 const RoomScheme = z.object({
 	id: z.string(),
@@ -18,6 +21,9 @@ export async function getRooms() {
 	try {
 		const response = await fetch("http://localhost:3001/rooms", {
 			cache: "no-store",
+			next: {
+				tags: ["rooms"],
+			},
 			method: "GET",
 		});
 
@@ -86,5 +92,25 @@ export async function getRoomById(id: string) {
 		return { data: data, ok: true, errorMessage: "", successMessage: message, alreadyFetched: true };
 	} catch (error) {
 		return apiError(error);
+	}
+}
+
+export async function joinRoomById(id: string) {
+	try {
+		const response = await fetch(`http://localhost:3001/rooms/joinRoomById/${id}`, {
+			cache: "no-store",
+			method: "POST",
+		});
+
+		if (!response.ok) {
+			const data = (await response.json()) as { message: string; error: Error };
+			throw new Error(data.error.message);
+		}
+
+		const { data } = (await response.json()) as { data: Room; message: string };
+
+		return { data: data, ok: true, errorMessage: "", successMessage: "Entrou na sala com sucesso", alreadyFetched: true };
+	} catch (error) {
+		permanentRedirect("/rooms");
 	}
 }
