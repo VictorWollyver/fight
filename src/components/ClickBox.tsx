@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { io, type Socket } from "socket.io-client";
 // import socket from "@/lib/socket";
 
-import type { Room } from "@/app/api/rooms";
+import type { Room } from "@/app/actions/rooms";
 
 const ROUND_TIME = 30; // 30 Segundos de duração de um round
 

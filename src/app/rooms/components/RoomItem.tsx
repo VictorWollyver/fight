@@ -1,21 +1,16 @@
 "use client";
 import React from "react";
-import { joinRoomById, type Room } from "@/app/api/rooms";
-import { set } from "zod";
+import type { Room } from "@/app/actions/rooms";
+import { useRouter } from "next/navigation";
 
 interface IRoomItemProps {
 	room: Room;
 }
 
 const RoomItem = ({ room }: IRoomItemProps) => {
-	const [isLoading, setIsLoading] = React.useState(false);
+	const router = useRouter();
 	async function handleClickJoin() {
-		setIsLoading(true);
-		const response = await joinRoomById(room.id);
-		setIsLoading(false);
-		if (!response) {
-			alert("Erro ao entrar na sala");
-		}
+		router.push(`/rooms/${room.id}`);
 	}
 
 	return (
@@ -26,8 +21,8 @@ const RoomItem = ({ room }: IRoomItemProps) => {
 					{room.currentPlayersCount}/{room.maxPlayersCount}
 				</p>
 			</div>
-			<button disabled={isLoading} onClick={handleClickJoin} type="button" className="border-[3px] px-3 border-black border-solid text-4xl rounded-xl">
-				{isLoading ? "..." : "JOIN"}
+			<button onClick={handleClickJoin} type="button" className="border-[3px] px-3 border-black border-solid text-4xl rounded-xl">
+				JOIN
 			</button>
 		</div>
 	);

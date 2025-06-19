@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import Input from "./Input";
 
 import { ArrowLeft } from "lucide-react";
-import { postRoom } from "@/app/api/rooms";
+import { postRoom } from "@/app/actions/rooms";
 import ErrorMessage from "@/functions/ErrorMessage";
 import SuccessMessage from "@/functions/SuccessMessage";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import type { Room } from "@/app/api/rooms";
+import type { Room } from "@/app/actions/rooms";
 import RoomItem from "./RoomItem";
 
 interface IRoomsListProps {

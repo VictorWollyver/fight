@@ -1,5 +1,7 @@
-import { joinRoomById } from "@/app/api/rooms";
+import { joinRoomById } from "@/app/actions/rooms";
 import ClickBox from "@/components/ClickBox";
+import LeaveButton from "./LeaveButton";
+import { setCookie } from "@/app/actions/cookies";
 
 const LobbyPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 	const id = (await params).id;
@@ -21,8 +23,8 @@ const LobbyPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 			<ClickBox room={data} />
 
 			<div className="flex gap-4">
-				{/* <JoinButton roomId={data?.id} />
-				<LeaveButton /> */}
+				{/* <JoinButton roomId={data?.id} /> */}
+				<LeaveButton roomId={data?.id} />
 			</div>
 		</main>
 	);

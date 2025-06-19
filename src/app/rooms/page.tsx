@@ -4,7 +4,7 @@ import React from "react";
 import RoomsList from "./components/RoomsList";
 import Button from "@/components/Button";
 import Link from "next/link";
-import { getRooms, type Room } from "../api/rooms";
+import { getRooms, type Room } from "../actions/rooms";
 import ButtonReload from "./components/ButtonReload";
 
 export const metadata: Metadata = {
